@@ -1,0 +1,197 @@
+# Create Default button
+<Button>
+    #background_normal: ''
+    #background_color: '#C9ECF0'
+    color: (1,1,1,1)
+    font_size: 20
+    #background_color: 0,0,0,0  # the last zero is the critical on, make invisible
+    #canvas.before:
+        #Color:
+            #rgba: (.4,.4,.4,1) if self.state=='normal' else (0,.7,.7,1)  # visual feedback of press
+        #RoundedRectangle:
+            #pos: self.pos
+            #size: self.size
+            #radius: [5,]
+
+# Create modified widget with new name
+<RoundedButton@Button>
+    background_color: (48/255,84/255,150/255,1)
+    background_normal: 'atlas://data/images/defaulttheme/textinput'
+    canvas.before:
+        Color:
+            rgba: (48/255,84/255,150/255,1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [20]
+
+<CalcLayout>
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, .9
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    GridLayout: # OUTPUT LABEL
+        cols: 1
+        size: root.width, root.height
+        #padding: 5
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 3
+            # LABEL HISTORY OUTPUT
+            Label:
+                id: output_history
+                color: (0,0,0,.3)
+                multiline: True
+                size_hint: (1,.5)
+                text_size: self.size # Harus ditambahkan untuk mengatur posisi di LABEL
+                font_size: 25
+                halign: 'right'
+                valign: 'top'
+                canvas.before:
+                    Color:
+                        rgba: (1,1,1,1)
+                    Rectangle: 
+                        size: self.size
+                        pos: self.pos
+            # LABEL OUTPUT
+            Label:
+                id: output_label
+                color: (0,0,0,.85)
+                multiline: True
+                size_hint: (1, 1)
+                text_size: self.size # Harus ditambahkan untuk mengatur posisi di LABEL
+                font_size: 35
+                halign: 'right'
+                valign: 'bottom'
+                canvas.before:
+                    Color:
+                        rgba: (1,1,1,1)
+                    Rectangle: 
+                        size: self.size
+                        pos: self.pos
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: (1, .4)
+            
+            # CELAR AND DELETE BUTTON
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: .1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_x: .943
+                    size_hint_y: .9
+                    pos_hint: {'center_y': .45}
+                    Button:
+                        text: 'C'
+                        font_name: 'JetBrainsMono-VariableFont_wght.ttf'
+                        font_size: 15
+                        on_press: root.clear()
+                    Button:
+                        text: '←'
+                        font_name: 'JetBrainsMono-VariableFont_wght.ttf'
+                        font_size: 17
+                        on_press: root.delete()
+                
+                BoxLayout: # blank space
+                    orientation: 'horizontal'
+                    Button:
+                        background_normal: ''
+                        background_color: (1,1,1,0)
+                    Button:
+                        background_normal: ''
+                        background_color: (1,1,1,0)
+            
+            # √ , %, Xⁿ, ÷ BUTTON
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,.1)
+                Button:
+                    text: '√'
+                    on_press: root.button_press('√')
+                Button:
+                    text: '%'
+                    on_press: root.button_press('%')
+                Button:
+                    text: 'Xⁿ'
+                    font_size: 17
+                    on_press: root.button_press('^')
+                Button:
+                    text: '÷'
+                    size_hint: (1.125,1)
+                    on_press: root.button_press('÷')
+        
+        # NUMBER BUTTON AND SOME RIGHT SIDE OPERATORS
+        BoxLayout:
+            orientation: 'horizontal'
+            GridLayout:
+                cols: 3
+                Button:
+                    text: '1'
+                    opacity: .9
+                    on_press: root.button_press(1)
+                Button:
+                    text: '2'
+                    opacity: .9
+                    on_press: root.button_press(2)
+                Button:
+                    text: '3'
+                    opacity: .9
+                    on_press: root.button_press(3)
+                Button:
+                    text: '4'
+                    opacity: .9
+                    on_press: root.button_press(4)
+                Button:
+                    text: '5'
+                    opacity: .9
+                    on_press: root.button_press(5)
+                Button:
+                    text: '6'
+                    opacity: .9
+                    on_press: root.button_press(6)
+                Button:
+                    text: '7'
+                    opacity: .9
+                    on_press: root.button_press(7)
+                Button:
+                    text: '8'
+                    opacity: .9
+                    on_press: root.button_press(8)
+                Button:
+                    text: '9'
+                    opacity: .9
+                    on_press: root.button_press(9)
+                Button:
+                    text: '.'
+                    opacity: .9
+                    on_press: root.button_press('.')
+                Button:
+                    text: '0'
+                    opacity: .9
+                    on_press: root.button_press(0)
+                Button:
+                    text: '-'
+                    font_size: 23
+                    opacity: .9
+                    on_press: root.button_press('-')
+
+            GridLayout:
+                cols:1
+                size_hint: (.375,1)
+                BoxLayout: 
+                    orientation: 'vertical'
+                    Button:
+                        text: '×'
+                        on_press: root.button_press('×')
+                    Button:
+                        text: '+'
+                        on_press: root.button_press('+')
+                Button:
+                    text: '='
+                    on_press: root.equals_button()
+                    
