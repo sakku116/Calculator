@@ -96,7 +96,6 @@ class CalcLayout(Widget):
         except:
             self.ids.output_label.text = f'ERROR'
 
-
 class MyCalcApp(App):
     def build(self):
         return CalcLayout()
