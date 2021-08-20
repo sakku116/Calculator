@@ -1,2 +1,2 @@
-# Kivy-Calculator
+# Calculator
 python calculator with kivy gui
