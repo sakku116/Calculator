@@ -1,9 +1,10 @@
 # Create Default button
 <Button>
-    #background_normal: ''
-    #background_color: '#C9ECF0'
+    
     color: (1,1,1,1)
     font_size: 20
+    
+    #background_normal: ""
     #background_color: 0,0,0,0  # the last zero is the critical on, make invisible
     #canvas.before:
         #Color:
@@ -12,6 +13,7 @@
             #pos: self.pos
             #size: self.size
             #radius: [5,]
+            
 
 # Create modified widget with new name
 <RoundedButton@Button>
@@ -33,15 +35,18 @@
             pos: self.pos
             size: self.size
 
-    GridLayout: # OUTPUT LABEL
+    ### MAIN LAYOUT ###
+    GridLayout:
         cols: 1
         size: root.width, root.height
         #padding: 5
+
+        ### OUTPUT LABEL ###
         BoxLayout:
             orientation: 'vertical'
             padding: 3
-            # LABEL HISTORY OUTPUT
-            Label:
+
+            Label: # history output label
                 id: output_history
                 color: (0,0,0,.3)
                 multiline: True
@@ -56,8 +61,8 @@
                     Rectangle: 
                         size: self.size
                         pos: self.pos
-            # LABEL OUTPUT
-            Label:
+
+            Label: # output label
                 id: output_label
                 color: (0,0,0,.85)
                 multiline: True
@@ -73,19 +78,18 @@
                         size: self.size
                         pos: self.pos
 
+        ### TOP SIDE BUTTON (clear and some operators) ###
         BoxLayout:
             orientation: 'vertical'
             size_hint: (1, .4)
             
-            # CELAR AND DELETE BUTTON
-            BoxLayout:
+            # CLEAR AND DELETE BUTTON
+            BoxLayout: 
                 orientation: 'horizontal'
-                size_hint_y: .1
+                size_hint_y: .089
                 BoxLayout:
                     orientation: 'horizontal'
                     size_hint_x: .943
-                    size_hint_y: .9
-                    pos_hint: {'center_y': .45}
                     Button:
                         text: 'C'
                         font_name: 'JetBrainsMono-VariableFont_wght.ttf'
@@ -96,18 +100,18 @@
                         font_name: 'JetBrainsMono-VariableFont_wght.ttf'
                         font_size: 17
                         on_press: root.delete()
-                
                 BoxLayout: # blank space
                     orientation: 'horizontal'
                     Button:
-                        background_normal: ''
-                        background_color: (1,1,1,0)
+                        text: '('
+                        on_press: root.button_press('(')
                     Button:
-                        background_normal: ''
-                        background_color: (1,1,1,0)
+                        size_hint_x: 1.125
+                        text: ')'
+                        on_press: root.button_press(')')
             
-            # √ , %, Xⁿ, ÷ BUTTON
-            BoxLayout:
+            # TOP SIDE OPERATORS
+            BoxLayout: 
                 orientation: 'horizontal'
                 size_hint: (1,.1)
                 Button:
@@ -125,10 +129,12 @@
                     size_hint: (1.125,1)
                     on_press: root.button_press('÷')
         
-        # NUMBER BUTTON AND SOME RIGHT SIDE OPERATORS
+        ### NUMBER AND SIDE OPERATORS BUTTON ###
         BoxLayout:
             orientation: 'horizontal'
-            GridLayout:
+
+            ### NUMBER BUTTON ###
+            GridLayout: 
                 cols: 3
                 Button:
                     text: '1'
@@ -180,7 +186,8 @@
                     opacity: .9
                     on_press: root.button_press('-')
 
-            GridLayout:
+            ### SIDE OPERATORS BUTTON ###
+            GridLayout: 
                 cols:1
                 size_hint: (.375,1)
                 BoxLayout: 
