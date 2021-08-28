@@ -1,36 +1,56 @@
-# Create Default button
+# change and set the default button style
 <Button>
-    
     color: (1,1,1,1)
     font_size: 20
     
-    #background_normal: ""
-    #background_color: 0,0,0,0  # the last zero is the critical on, make invisible
-    #canvas.before:
-        #Color:
-            #rgba: (.4,.4,.4,1) if self.state=='normal' else (0,.7,.7,1)  # visual feedback of press
-        #RoundedRectangle:
-            #pos: self.pos
-            #size: self.size
-            #radius: [5,]
-            
 
 # Create modified widget with new name
-<RoundedButton@Button>
-    background_color: (48/255,84/255,150/255,1)
-    background_normal: 'atlas://data/images/defaulttheme/textinput'
+# (RoundedButton as Button)
+<NumButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    color: (1,1,1,1)
     canvas.before:
         Color:
-            rgba: (48/255,84/255,150/255,1)
+            rgba: (0,0,0,.8) if self.state=='normal' else (0,0,0,.6) # visual feedback
+            # (dalam canvas.before tidak bisa menampilkan visual feedback, 
+            # karena visual feedback secara default merupakan bagian elemen dari background color
+            # , dan sebab background color diberi 0 alpha / transparan, maka secara default
+            # fedback juga tidak terlihat)
         RoundedRectangle:
             size: self.size
             pos: self.pos
-            radius: [20]
+            radius: [10] if self.state=='normal' else [20]
 
+<TopButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    color: (1,1,1,1)
+    canvas.before:
+        Color:
+            rgba: (0,0,0,.8) if self.state=='normal' else (0,.7,.7,1) # visual feedback
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [10] if self.state=='normal' else [20]
+
+<SideButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    color: (1,1,1,1)
+    canvas.before:
+        Color:
+            rgba: (0,0,0,.8) if self.state=='normal' else (0,.7,.7,1) # visual feedback
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [10] if self.state=='normal' else [20]
+
+########## MAIN LAYOUT ##########
 <CalcLayout>
     canvas.before:
         Color:
-            rgba: 1, 1, 1, .9
+            rgba: 1,1,1,.7
         Rectangle:
             pos: self.pos
             size: self.size
@@ -82,49 +102,52 @@
         BoxLayout:
             orientation: 'vertical'
             size_hint: (1, .4)
+            padding: 2
+            spacing: 3.5
             
-            # CLEAR AND DELETE BUTTON
+            # DELETE, CLEAR, BRACKETS BUTTON
             BoxLayout: 
                 orientation: 'horizontal'
                 size_hint_y: .089
-                BoxLayout:
-                    orientation: 'horizontal'
-                    size_hint_x: .943
-                    Button:
-                        text: 'C'
-                        font_name: 'JetBrainsMono-VariableFont_wght.ttf'
-                        font_size: 15
-                        on_press: root.clear()
-                    Button:
-                        text: '←'
-                        font_name: 'JetBrainsMono-VariableFont_wght.ttf'
-                        font_size: 17
-                        on_press: root.delete()
-                BoxLayout: # blank space
-                    orientation: 'horizontal'
-                    Button:
-                        text: '('
-                        on_press: root.button_press('(')
-                    Button:
-                        size_hint_x: 1.125
-                        text: ')'
-                        on_press: root.button_press(')')
+                #size_hint_x: .943
+                spacing: 3.5
+
+                TopButton: # reference to <TopButton@Button>
+                    text: 'C'
+                    font_name: 'JetBrainsMono-VariableFont_wght.ttf'
+                    font_size: 15
+                    on_press: root.clear()
+                TopButton:
+                    text: '←'
+                    font_name: 'JetBrainsMono-VariableFont_wght.ttf'
+                    font_size: 17
+                    on_press: root.delete()
+
+                TopButton:
+                    text: '('
+                    on_press: root.button_press('(')
+                TopButton:
+                    size_hint_x: 1.125
+                    text: ')'
+                    on_press: root.button_press(')')
             
             # TOP SIDE OPERATORS
             BoxLayout: 
                 orientation: 'horizontal'
                 size_hint: (1,.1)
-                Button:
+                spacing: 3.5
+
+                TopButton:
                     text: '√'
                     on_press: root.button_press('√')
-                Button:
+                TopButton:
                     text: '%'
                     on_press: root.button_press('%')
-                Button:
+                TopButton:
                     text: 'Xⁿ'
                     font_size: 17
                     on_press: root.button_press('^')
-                Button:
+                TopButton:
                     text: '÷'
                     size_hint: (1.125,1)
                     on_press: root.button_press('÷')
@@ -135,70 +158,73 @@
 
             ### NUMBER BUTTON ###
             GridLayout: 
-                cols: 3
-                Button:
-                    text: '1'
-                    opacity: .9
-                    on_press: root.button_press(1)
-                Button:
-                    text: '2'
-                    opacity: .9
-                    on_press: root.button_press(2)
-                Button:
-                    text: '3'
-                    opacity: .9
-                    on_press: root.button_press(3)
-                Button:
-                    text: '4'
-                    opacity: .9
-                    on_press: root.button_press(4)
-                Button:
-                    text: '5'
-                    opacity: .9
-                    on_press: root.button_press(5)
-                Button:
-                    text: '6'
-                    opacity: .9
-                    on_press: root.button_press(6)
-                Button:
-                    text: '7'
-                    opacity: .9
-                    on_press: root.button_press(7)
-                Button:
-                    text: '8'
-                    opacity: .9
-                    on_press: root.button_press(8)
-                Button:
-                    text: '9'
-                    opacity: .9
-                    on_press: root.button_press(9)
-                Button:
-                    text: '.'
-                    opacity: .9
-                    on_press: root.button_press('.')
-                Button:
-                    text: '0'
-                    opacity: .9
-                    on_press: root.button_press(0)
-                Button:
-                    text: '-'
-                    font_size: 23
-                    opacity: .9
-                    on_press: root.button_press('-')
+                cols: 1
+                padding: 2
+
+                GridLayout: 
+                    cols: 3
+                    spacing: 3.5
+
+                    NumButton: # reference to <NumButton@Button>
+                        text: '1'
+                        on_press: root.button_press(1)
+                    NumButton:
+                        text: '2'
+                        on_press: root.button_press(2)
+                    NumButton:
+                        text: '3'
+                        on_press: root.button_press(3)
+                    NumButton:
+                        text: '4'
+                        on_press: root.button_press(4)
+                    NumButton:
+                        text: '5'
+                        on_press: root.button_press(5)
+                    NumButton:
+                        text: '6'
+                        on_press: root.button_press(6)
+                    NumButton:
+                        text: '7'
+                        on_press: root.button_press(7)
+                    NumButton:
+                        text: '8'
+                        on_press: root.button_press(8)
+                    NumButton:
+                        text: '9'
+                        on_press: root.button_press(9)
+                    NumButton:
+                        text: '.'
+                        on_press: root.button_press('.')
+                    NumButton:
+                        text: '0'
+                        on_press: root.button_press(0)
+                    NumButton:
+                        text: '-'
+                        font_size: 23
+                        on_press: root.button_press('-')
 
             ### SIDE OPERATORS BUTTON ###
             GridLayout: 
                 cols:1
                 size_hint: (.375,1)
+
                 BoxLayout: 
                     orientation: 'vertical'
-                    Button:
+                    spacing: 3.5
+                    padding: 2
+
+                    SideButton: # refrence to <SideButton@Button>
                         text: '×'
                         on_press: root.button_press('×')
-                    Button:
+                    SideButton:
                         text: '+'
                         on_press: root.button_press('+')
-                Button:
-                    text: '='
-                    on_press: root.equals_button()
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: 2
+
+                    SideButton:     
+                        text: '='
+                        on_press: root.equals_button()
                     
