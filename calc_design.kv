@@ -2,7 +2,7 @@
 <Button>
     color: (1,1,1,1)
     font_size: 20
-    
+
 
 # Create modified widget with new name
 # (RoundedButton as Button)
@@ -13,7 +13,7 @@
     canvas.before:
         Color:
             rgba: (0,0,0,.8) if self.state=='normal' else (0,0,0,.6) # visual feedback
-            # (dalam canvas.before tidak bisa menampilkan visual feedback, 
+            # (dalam canvas.before tidak bisa menampilkan visual feedback,
             # karena visual feedback secara default merupakan bagian elemen dari background color
             # , dan sebab background color diberi 0 alpha / transparan, maka secara default
             # fedback juga tidak terlihat)
@@ -78,7 +78,7 @@
                 canvas.before:
                     Color:
                         rgba: (1,1,1,1)
-                    Rectangle: 
+                    Rectangle:
                         size: self.size
                         pos: self.pos
 
@@ -94,7 +94,7 @@
                 canvas.before:
                     Color:
                         rgba: (1,1,1,1)
-                    Rectangle: 
+                    Rectangle:
                         size: self.size
                         pos: self.pos
 
@@ -104,9 +104,9 @@
             size_hint: (1, .4)
             padding: 2
             spacing: 3.5
-            
+
             # DELETE, CLEAR, BRACKETS BUTTON
-            BoxLayout: 
+            BoxLayout:
                 orientation: 'horizontal'
                 size_hint_y: .089
                 #size_hint_x: .943
@@ -130,9 +130,9 @@
                     size_hint_x: 1.125
                     text: ')'
                     on_press: root.button_press(')')
-            
+
             # TOP SIDE OPERATORS
-            BoxLayout: 
+            BoxLayout:
                 orientation: 'horizontal'
                 size_hint: (1,.1)
                 spacing: 3.5
@@ -151,17 +151,17 @@
                     text: '÷'
                     size_hint: (1.125,1)
                     on_press: root.button_press('÷')
-        
+
         ### NUMBER AND SIDE OPERATORS BUTTON ###
         BoxLayout:
             orientation: 'horizontal'
 
             ### NUMBER BUTTON ###
-            GridLayout: 
+            GridLayout:
                 cols: 1
                 padding: 2
 
-                GridLayout: 
+                GridLayout:
                     cols: 3
                     spacing: 3.5
 
@@ -204,11 +204,11 @@
                         on_press: root.button_press('-')
 
             ### SIDE OPERATORS BUTTON ###
-            GridLayout: 
+            GridLayout:
                 cols:1
                 size_hint: (.375,1)
 
-                BoxLayout: 
+                BoxLayout:
                     orientation: 'vertical'
                     spacing: 3.5
                     padding: 2
@@ -224,7 +224,6 @@
                     orientation: 'vertical'
                     padding: 2
 
-                    SideButton:     
+                    SideButton:
                         text: '='
                         on_press: root.equals_button()
-                    
