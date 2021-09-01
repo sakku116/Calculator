@@ -12,7 +12,7 @@ Builder.load_file('calc_design.kv')
 
 class CalcLayout(Widget):
     error_text = 'ERROR'
-    
+
     def clear(self):
         self.ids.output_label.text = ''
         self.ids.output_history.text = ''
@@ -33,7 +33,7 @@ class CalcLayout(Widget):
         count = 0
         # Menagkap teks dari outputlabel
         output = self.ids.output_label.text
-        
+
         # MENGHITUNG JUMLAH OPEN BRACKET DAN CLOSE BRACKET
         ###################################
         def brackets_len(char):
@@ -43,11 +43,11 @@ class CalcLayout(Widget):
                     closed_bracket.append(i)
             result = len(closed_bracket)
             return result
-            
+
         openBracket_total = brackets_len('(')
         closeBracket_total = brackets_len(')')
         ####################################
-        
+
         #log
         print(f'openBracket_total = {openBracket_total}', f'closeBracket_total = {closeBracket_total}')
 
@@ -77,7 +77,7 @@ class CalcLayout(Widget):
                     str_list = str(str_list).replace(i, j)
 
                 self.ids.output_label.text = str_list
-            
+
     def equals_button(self):
         # menaruh input text ke dalam history label
         pre_output = self.ids.output_label.text
@@ -105,7 +105,7 @@ class CalcLayout(Widget):
         openBracket_index = find_brackets_index('(')
         closeBracket_index = find_brackets_index(')')
         ####################################
-        
+
         #log
         print(f'openBracket_index = {openBracket_index}', f'closeBracket_index = {closeBracket_index}')
 
@@ -116,7 +116,7 @@ class CalcLayout(Widget):
             "^":"**"}
         for i, j in replace_chars.items():
             output = output.replace(i, j)
-        
+
         if '√' in output:
             print(output.split('√'))
             def sqrtmath_solver(get):
@@ -137,7 +137,7 @@ class CalcLayout(Widget):
                     return output
             sqrt_output = sqrtmath_solver(output)
             result = str(eval(sqrt_output)).replace('.0','')
-            
+
             print(f'{output} = {result}')
 
 class MyCalculatorApp(App):
